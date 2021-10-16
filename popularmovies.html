@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-family: sans-serif;
+            background-color: lightslategrey;
+        }
+        #movies{
+         display: grid;
+         grid-template-columns: repeat(4, 25%);
+         margin: 5%;
+         grid-gap: 20px;
+        }
+        img{
+            width:50%;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "movies">
+        
+    </div>
+</body>
+</html>
+<script>
+    // https://api.themoviedb.org/4/list/1?api_key=3842b99775086f82d41e47da9741ee3a
+
+ fetch(" https://api.themoviedb.org/3/movie/popular?api_key=3842b99775086f82d41e47da9741ee3a&language=en-US&page=1")
+
+ 
+ .then(function (res){
+
+    return res.json();
+ })
+ .then(function (res){
+console.log(res.results)
+var a = res.results;
+
+showProducts(a)
+
+})
+let container = document.getElementById("movies");
+
+function showProducts(movies) {
+
+    movies.forEach(function (movie){
+
+        let div = document.createElement("div");
+
+        let img = document.createElement("img");
+
+         img.src =  `https://image.tmdb.org/t/p/original/${movie.poster_path}` ;
+         console.log(img)
+        let name = document.createElement("p");
+
+        name.textContent = movie.title;
+        console.log(name)
+
+        let date = document.createElement("p");
+         
+        date.innerText = movie.release_date;
+        // console.log(name)
+        div.append(img,name,date);
+        
+         container.append(div);
+    })
+    
+}
+
+showProducts();
+
+</script>
